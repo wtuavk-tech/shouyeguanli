@@ -14,7 +14,8 @@ import {
   Filter,
   Trash2,
   FileSpreadsheet,
-  RefreshCw
+  RefreshCw,
+  Megaphone // Added Megaphone
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -357,36 +358,50 @@ const PAGE_1_HTML = `
 </html>
 `;
 
-// --- 子组件：通知栏 ---
+// --- 子组件：通知栏 (视觉风格：深色通告栏 + 红色标签) ---
 const NotificationBar = () => (
-  <div className="flex items-center gap-4 mb-2 px-4 py-2 bg-[#fff7e6] border border-[#ffd591] rounded-lg shadow-sm overflow-hidden shrink-0">
-    <div className="flex items-center gap-2 text-[#d46b08] shrink-0">
-      <Bell size={14} className="animate-pulse" />
-      <span className="text-xs font-bold">系统公告</span>
+  <div className="flex items-center gap-4 mb-3 px-4 h-11 bg-[#0f172a] rounded-lg shadow-sm overflow-hidden shrink-0 relative">
+     <div className="flex items-center gap-2 bg-[#f5222d] text-white px-2.5 py-1 rounded text-[11px] font-bold shrink-0">
+      <span>重要公告</span>
+      <Bell size={12} fill="white" />
     </div>
-    <div className="flex-1 overflow-hidden relative h-5 flex items-center">
-      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-8 text-[11px] text-[#d46b08]">
-        <span>📢 系统优化：修复了“派单员数据分析”中的多选对比功能，确保图表实时联动。天梯榜权重已更新。</span>
+    <div className="flex-1 overflow-hidden relative flex items-center">
+      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-6 text-[12px] text-slate-200">
+        <Megaphone size={14} className="text-[#f5222d]" />
+        <span>关于 2025 年度秋季职级晋升评审的通知：点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认。</span>
       </div>
+    </div>
+    <div className="shrink-0 bg-white/10 px-2 py-0.5 rounded text-[11px] text-slate-400 font-mono border border-white/5">
+        2025-11-19
     </div>
     <style>{`@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`}</style>
   </div>
 );
 
-// --- 子组件：标签切换 ---
+// --- 子组件：标签切换 (视觉风格：彩虹色卡片行) ---
 const TabSelector = ({ activeTab, onSelect }: { activeTab: TabType, onSelect: (t: TabType) => void }) => {
-  const tabs: TabType[] = ['店铺统计', '数据统计', '天梯榜', '负责人看板', '派单员数据分析', '客服录单轨迹', '派单员录单轨迹'];
+  // 定义颜色映射，严格还原图片顺序
+  const tabConfigs: { id: TabType, className: string }[] = [
+    { id: '店铺统计', className: 'bg-[#ff4d4f] border-[#ff4d4f] text-white shadow-red-200' }, // 对应图1：红色实心
+    { id: '数据统计', className: 'bg-[#fffbe6] border-[#ffe58f] text-[#d48806] hover:bg-[#fff1b8]' }, // 对应图2：黄色
+    { id: '天梯榜', className: 'bg-[#e6f7ff] border-[#91d5ff] text-[#096dd9] hover:bg-[#bae7ff]' }, // 对应图3：蓝色
+    { id: '负责人看板', className: 'bg-[#f6ffed] border-[#b7eb8f] text-[#389e0d] hover:bg-[#d9f7be]' }, // 对应图4：绿色
+    { id: '派单员数据分析', className: 'bg-[#e6fffb] border-[#87e8de] text-[#08979c] hover:bg-[#b5f5ec]' }, // 对应图5：青色
+    { id: '客服录单轨迹', className: 'bg-[#f9f0ff] border-[#d3adf7] text-[#531dab] hover:bg-[#efdbff]' }, // 对应图6：紫色
+    { id: '派单员录单轨迹', className: 'bg-[#fff0f6] border-[#ffadd2] text-[#c41d7f] hover:bg-[#ffd6e7]' }, // 补充：粉色
+  ];
+
   return (
-    <div className="grid grid-cols-7 gap-1 mb-2">
-      {tabs.map((tab) => (
+    <div className="grid grid-cols-7 gap-3 mb-3">
+      {tabConfigs.map((tab) => (
         <button
-          key={tab}
-          onClick={() => onSelect(tab)}
-          className={`h-9 border border-slate-300 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center px-1 text-center leading-tight ${
-            activeTab === tab ? 'bg-[#1890ff] text-white border-[#1890ff] shadow-md' : 'bg-white text-slate-600 hover:border-blue-400 hover:text-blue-500 hover:shadow-sm'
-          }`}
+          key={tab.id}
+          onClick={() => onSelect(tab.id)}
+          className={`h-11 border rounded-lg text-[13px] font-bold transition-all flex items-center justify-center px-1 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none cursor-pointer ${
+             tab.className
+          } ${activeTab === tab.id ? 'ring-2 ring-offset-1 ring-slate-200 opacity-100' : 'opacity-95'}`}
         >
-          {tab}
+          {tab.id}
         </button>
       ))}
     </div>
