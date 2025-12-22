@@ -635,6 +635,30 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
 const App = () => {
   const [activeTab, setActiveTab] = useState<TabType>('店铺统计');
 
+  const overviewConfig = useMemo(() => {
+    if (activeTab === '客服录单轨迹') {
+      return {
+        title: '客服录单数据概览',
+        stats: [
+          ['今日录单总数', '482', '#262626'],
+          ['昨日录单总数', '465', '#595959'],
+          ['当月录单总数', '12,580', '#1890ff'],
+          ['上月录单总数', '11,200', '#595959'],
+          ['环比率', '+12.3%', '#f5222d']
+        ]
+      };
+    }
+    return {
+      title: '运营效能概览',
+      stats: [
+        ['今日单量', '2,482', '#262626'],
+        ['异常预警', '3', '#f5222d'],
+        ['榜单冠军', '廖林峰', '#52c41a'],
+        ['全网GMV', '¥85.4w', '#1890ff']
+      ]
+    };
+  }, [activeTab]);
+
   const renderContent = () => {
     switch (activeTab) {
       case '店铺统计': return <StoreStats />;
@@ -658,10 +682,10 @@ const App = () => {
           <div className="flex items-center gap-3 px-4 flex-1">
             <div className="flex items-center gap-2 mr-8 shrink-0">
               <Activity size={18} className="text-[#1890ff]" />
-              <span className="text-sm font-bold text-[#003a8c]">运营效能概览</span>
+              <span className="text-sm font-bold text-[#003a8c]">{overviewConfig.title}</span>
             </div>
             <div className="flex gap-12">
-              {[['今日单量', '2,482', '#262626'], ['异常预警', '3', '#f5222d'], ['榜单冠军', '廖林峰', '#52c41a'], ['全网GMV', '¥85.4w', '#1890ff']].map(([label, val, color]) => (
+              {overviewConfig.stats.map(([label, val, color]) => (
                 <div key={label} className="flex items-center gap-1.5">
                   <span className="text-[12px] text-[#8c8c8c]">{label}:</span>
                   <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
