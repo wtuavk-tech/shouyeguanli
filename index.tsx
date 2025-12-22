@@ -561,13 +561,6 @@ const DispatcherDataAnalysis = () => {
   return (
     <div className="flex-1 flex flex-col overflow-auto p-1 space-y-4">
       <div className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-             <h3 className="text-sm font-bold text-slate-700 flex items-center gap-2">
-                <BarChart2 size={16} className="text-blue-500" />
-                派单员数据分析 (专业版)
-             </h3>
-             <span className="text-[10px] text-slate-400 font-mono">嵌入：12.19 对比逻辑修复版</span>
-          </div>
           <iframe 
             srcDoc={PAGE_1_HTML} 
             className="w-full border-none" 
