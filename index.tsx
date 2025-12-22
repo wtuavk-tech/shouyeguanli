@@ -15,7 +15,12 @@ import {
   Trash2,
   FileSpreadsheet,
   RefreshCw,
-  Megaphone // Added Megaphone
+  Megaphone,
+  Calendar,
+  ArrowUpDown,
+  Square,
+  CheckSquare,
+  BarChart3
 } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -582,7 +587,7 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
     group: "运营中心",
     role: type === '客服' ? "客服" : "派单",
     totalCount: Math.floor(Math.random() * 10),
-    avgInterval: "24分58秒",
+    avgInterval: `${Math.floor(Math.random() * 30)}分${Math.floor(Math.random() * 60).toString().padStart(2, '0')}秒`,
     regDays: 500 - i * 5
   })), [type]);
 
@@ -594,9 +599,20 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
           <input type="text" placeholder="请输入内容" className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400" />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500 text-red-500">* 查询日期</span>
+          <span className="text-xs text-slate-500">查询日期</span>
           <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs" defaultValue="2025-12-19" />
         </div>
+        {type === '客服' && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-500">部门</span>
+            <select className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400 bg-white min-w-[100px]">
+              <option value="">全部</option>
+              <option value="运营中心">运营中心</option>
+              <option value="客服部">客服部</option>
+              <option value="综合部">综合部</option>
+            </select>
+          </div>
+        )}
         <button className="bg-[#1890ff] text-white px-6 h-8 rounded text-xs font-bold hover:bg-blue-600">搜索</button>
       </div>
       <div className="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm overflow-auto p-4 space-y-4">
@@ -606,6 +622,7 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
               <span className="bg-red-500 text-white px-2 py-1 rounded text-[10px] font-medium">{user.name} / {user.group} / {user.role}</span>
               <span className="bg-blue-400 text-white px-2 py-1 rounded text-[10px] font-medium">录单总量: {user.totalCount}</span>
               <span className="bg-green-500 text-white px-2 py-1 rounded text-[10px] font-medium">注册天数: {user.regDays}</span>
+              <span className="bg-purple-500 text-white px-2 py-1 rounded text-[10px] font-medium">平均录单时间间隔: {user.avgInterval}</span>
             </div>
             <div className="relative h-12 flex items-center border-t border-slate-50 pt-2">
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2"></div>
