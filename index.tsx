@@ -383,30 +383,25 @@ const NotificationBar = () => (
   </div>
 );
 
-// --- 子组件：标签切换 (视觉风格：彩虹色卡片行) ---
+// --- 子组件：标签切换 (视觉风格：统一淡蓝色风格) ---
 const TabSelector = ({ activeTab, onSelect }: { activeTab: TabType, onSelect: (t: TabType) => void }) => {
-  // 定义颜色映射，严格还原图片顺序
-  const tabConfigs: { id: TabType, className: string }[] = [
-    { id: '店铺统计', className: 'bg-[#ff4d4f] border-[#ff4d4f] text-white shadow-red-200' }, // 对应图1：红色实心
-    { id: '数据统计', className: 'bg-[#fffbe6] border-[#ffe58f] text-[#d48806] hover:bg-[#fff1b8]' }, // 对应图2：黄色
-    { id: '天梯榜', className: 'bg-[#e6f7ff] border-[#91d5ff] text-[#096dd9] hover:bg-[#bae7ff]' }, // 对应图3：蓝色
-    { id: '负责人看板', className: 'bg-[#f6ffed] border-[#b7eb8f] text-[#389e0d] hover:bg-[#d9f7be]' }, // 对应图4：绿色
-    { id: '派单员数据分析', className: 'bg-[#e6fffb] border-[#87e8de] text-[#08979c] hover:bg-[#b5f5ec]' }, // 对应图5：青色
-    { id: '客服录单轨迹', className: 'bg-[#f9f0ff] border-[#d3adf7] text-[#531dab] hover:bg-[#efdbff]' }, // 对应图6：紫色
-    { id: '派单员录单轨迹', className: 'bg-[#fff0f6] border-[#ffadd2] text-[#c41d7f] hover:bg-[#ffd6e7]' }, // 补充：粉色
+  const tabs: TabType[] = [
+    '店铺统计', '数据统计', '天梯榜', '负责人看板', '派单员数据分析', '客服录单轨迹', '派单员录单轨迹'
   ];
 
   return (
     <div className="grid grid-cols-7 gap-3 mb-3">
-      {tabConfigs.map((tab) => (
+      {tabs.map((tab) => (
         <button
-          key={tab.id}
-          onClick={() => onSelect(tab.id)}
-          className={`h-11 border rounded-lg text-[13px] font-bold transition-all flex items-center justify-center px-1 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none cursor-pointer ${
-             tab.className
-          } ${activeTab === tab.id ? 'ring-2 ring-offset-1 ring-slate-200 opacity-100' : 'opacity-95'}`}
+          key={tab}
+          onClick={() => onSelect(tab)}
+          // 背景色：#F0F9FE (用户指定)
+          // 边框和文字：参考截图，蓝色文字，淡蓝边框
+          className={`h-11 border rounded-lg text-[13px] font-bold transition-all flex items-center justify-center px-1 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none cursor-pointer 
+            bg-[#F0F9FE] border-[#91d5ff] text-[#1890ff] hover:bg-[#e6f7ff]
+            ${activeTab === tab ? 'ring-2 ring-offset-1 ring-[#1890ff] opacity-100' : 'opacity-90'}`}
         >
-          {tab.id}
+          {tab}
         </button>
       ))}
     </div>
