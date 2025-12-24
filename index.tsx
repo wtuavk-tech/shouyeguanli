@@ -47,10 +47,10 @@ const PAGE_1_HTML = `
     <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "recharts": "https://esm.sh/recharts@2.13.0",
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "recharts": "https://esm.sh/recharts@2.12.7?external=react,react-dom",
     "lucide-react": "https://esm.sh/lucide-react@0.460.0"
   }
 }
@@ -85,7 +85,7 @@ const PAGE_1_HTML = `
             <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4 h-[240px] flex flex-col">
                 <div className="flex items-center gap-2 mb-4">
                     <div className="w-1 h-4 rounded-full" style={{ backgroundColor: color }}></div>
-                    <h4 className="text-[13px] font-bold text-slate-700">{title}</h4>
+                    <h4 className="text-[13px] font-bold text-slate-700 font-sans">{title}</h4>
                 </div>
                 <div className="flex-1 w-full min-h-0">
                     <ResponsiveContainer width="100%" height="100%">
@@ -107,12 +107,12 @@ const PAGE_1_HTML = `
                     <div className={\`p-1.5 \${iconBg} rounded-md\`}>
                         <Icon size={14} className={iconColor} />
                     </div>
-                    <span className="text-sm font-bold text-slate-700">{title}</span>
+                    <span className="text-sm font-bold text-slate-700 font-sans">{title}</span>
                 </div>
                 <div className="p-3">
                     <table className="w-full text-[12px]">
                         <thead>
-                            <tr className="text-slate-400 font-medium">
+                            <tr className="text-slate-400 font-medium font-sans">
                                 <th className="pb-3 text-left">指标</th>
                                 <th className="pb-3 text-center">{labels[0]}</th>
                                 <th className="pb-3 text-center">{labels[1]}</th>
@@ -123,14 +123,14 @@ const PAGE_1_HTML = `
                         <tbody className="divide-y divide-slate-50">
                             {data.map((row, idx) => (
                                 <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                                    <td className="py-2.5 text-slate-600">{row.label}</td>
+                                    <td className="py-2.5 text-slate-600 font-sans">{row.label}</td>
                                     <td className="py-2.5 text-center text-slate-400 font-mono">{row.v1}</td>
                                     <td className="py-2.5 text-center text-slate-800 font-bold font-mono">{row.v2}</td>
                                     <td className={\`py-2.5 text-center font-mono \${row.diff.startsWith('+') ? 'text-red-500' : row.diff.startsWith('-') ? 'text-green-500' : 'text-slate-300'}\`}>
                                         {row.diff}
                                     </td>
                                     <td className="py-2.5 text-center">
-                                        <div className={\`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold \${row.ratio.includes('↑') ? 'bg-red-50 text-red-500' : row.ratio.includes('↓') ? 'bg-green-50 text-green-500' : 'bg-slate-50 text-slate-400'}\`}>
+                                        <div className={\`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold font-mono \${row.ratio.includes('↑') ? 'bg-red-50 text-red-500' : row.ratio.includes('↓') ? 'bg-green-50 text-green-500' : 'bg-slate-50 text-slate-400'}\`}>
                                             {row.ratio}
                                         </div>
                                     </td>
@@ -201,7 +201,7 @@ const PAGE_1_HTML = `
                     <div className="bg-[#F0F8FF] rounded-xl border border-blue-50 h-[64px] mb-4 flex items-center justify-between px-6 shadow-sm">
                         <div className="flex items-center gap-2">
                             <Activity className="h-5 w-5 text-blue-600" />
-                            <h2 className="text-[17px] font-[700] text-slate-800">数据概览</h2>
+                            <h2 className="text-[17px] font-[700] text-slate-800 font-sans">数据概览</h2>
                         </div>
                         
                         <div className="flex flex-1 items-center justify-center gap-10 text-slate-700">
@@ -214,8 +214,8 @@ const PAGE_1_HTML = `
                                 { l: '平均响应', v: '24.8分', c: 'text-purple-600' }
                             ].map((item, idx) => (
                                 <div key={idx} className="flex items-center gap-2">
-                                    <span className="text-[13px] text-slate-500">{item.l}:</span>
-                                    <span className={\`text-[16px] font-[700] \${item.c}\`}>{item.v}</span>
+                                    <span className="text-[13px] text-slate-500 font-sans">{item.l}:</span>
+                                    <span className={\`text-[16px] font-[700] font-mono \${item.c}\`}>{item.v}</span>
                                 </div>
                             ))}
                         </div>
@@ -234,7 +234,7 @@ const PAGE_1_HTML = `
                             <div className="flex items-center justify-between mb-4 px-2">
                                 <div className="flex items-center gap-2">
                                     <BarChart3 size={18} className="text-blue-600" />
-                                    <h3 className="text-[16px] font-bold text-slate-800">对比分析</h3>
+                                    <h3 className="text-[16px] font-bold text-slate-800 font-sans">对比分析</h3>
                                     <span className="bg-blue-100 text-blue-600 px-2.5 py-0.5 rounded-full text-[10px] font-bold">已选 {selectedUsers.length} 人</span>
                                 </div>
                                 <button onClick={clearSelection} className="text-xs text-[#1890ff] hover:text-red-500 font-medium transition-colors">清空选择</button>
@@ -247,8 +247,8 @@ const PAGE_1_HTML = `
                                 <ChartCard title="总单量对比" data={selectedUsers} dataKey="total" color="#6366f1" />
                                 <div className="bg-white rounded-xl border border-slate-200 border-dashed p-4 flex flex-col items-center justify-center text-center h-[240px]">
                                     <div className="space-y-2">
-                                        <p className="text-[13px] text-slate-500 font-medium">共对比 {selectedUsers.length} 位成员</p>
-                                        <p className="text-[11px] text-slate-400">数据基于所选时间范围</p>
+                                        <p className="text-[13px] text-slate-500 font-medium font-sans">共对比 {selectedUsers.length} 位成员</p>
+                                        <p className="text-[11px] text-slate-400 font-sans">数据基于所选时间范围</p>
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@ const PAGE_1_HTML = `
                             <div className="flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-1.5 bg-white min-w-[120px] justify-between cursor-pointer">
                                <div className="flex items-center gap-2">
                                  <div className="p-1 bg-slate-50 rounded"><ArrowUpDown className="h-3.5 w-3.5 text-slate-400 rotate-90" /></div>
-                                 <span className="text-sm text-slate-600">全部</span>
+                                 <span className="text-sm text-slate-600 font-sans">全部</span>
                                </div>
                                <ChevronDown className="h-4 w-4 text-slate-400" />
                             </div>
@@ -292,7 +292,7 @@ const PAGE_1_HTML = `
                             </div>
                             <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-1.5 bg-white flex-1">
                                 <Search className="h-4 w-4 text-slate-400" />
-                                <input type="text" placeholder="搜索姓名..." className="bg-transparent text-sm w-full outline-none text-slate-600" />
+                                <input type="text" placeholder="搜索姓名..." className="bg-transparent text-sm w-full outline-none text-slate-600 font-sans" />
                             </div>
                         </div>
                     )}
@@ -300,7 +300,7 @@ const PAGE_1_HTML = `
                     {/* Table */}
                     <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-slate-50/50 border-b border-slate-100 text-slate-500 font-medium">
+                            <thead className="bg-slate-50/50 border-b border-slate-100 text-slate-500 font-medium font-sans">
                                 <tr>
                                     <th className="px-6 py-4 w-12 text-center">
                                        <Square className="h-4 w-4 mx-auto text-slate-300" />
@@ -328,7 +328,7 @@ const PAGE_1_HTML = `
                                                 <Square className="h-4 w-4 mx-auto text-slate-300" />
                                             }
                                         </td>
-                                        <td className="px-4 py-4 font-medium flex items-center gap-3">
+                                        <td className="px-4 py-4 font-medium flex items-center gap-3 font-sans">
                                             <div className={\`w-7 h-7 \${row.avatarColor} rounded-full flex items-center justify-center text-[11px] font-bold\`}>
                                                 {row.initial}
                                             </div>
@@ -342,10 +342,10 @@ const PAGE_1_HTML = `
                                                 {row.rate30}%
                                             </span>
                                         </td>
-                                        <td className="px-4 py-4 text-center text-slate-600 text-[13px]">{row.response}分钟</td>
+                                        <td className="px-4 py-4 text-center text-slate-600 text-[13px] font-mono">{row.response}分钟</td>
                                         <td className="px-4 py-4 text-center text-slate-800 font-bold font-mono text-[13px]">{row.total}</td>
                                         <td className="px-4 py-4 text-center">
-                                            <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] text-slate-500">{row.project}</span>
+                                            <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] text-slate-500 font-sans">{row.project}</span>
                                         </td>
                                     </tr>
                                 ))}
@@ -366,12 +366,12 @@ const PAGE_1_HTML = `
 // --- 子组件：通知栏 (视觉风格：深色通告栏 + 红色标签) ---
 const NotificationBar = () => (
   <div className="flex items-center gap-4 mb-3 px-4 h-11 bg-[#0f172a] rounded-lg shadow-sm overflow-hidden shrink-0 relative">
-     <div className="flex items-center gap-2 bg-[#f5222d] text-white px-2.5 py-1 rounded text-[11px] font-bold shrink-0">
+     <div className="flex items-center gap-2 bg-[#f5222d] text-white px-2.5 py-1 rounded text-[11px] font-bold shrink-0 font-sans">
       <span>重要公告</span>
       <Bell size={12} fill="white" />
     </div>
     <div className="flex-1 overflow-hidden relative flex items-center">
-      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-6 text-[12px] text-slate-200">
+      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-6 text-[12px] text-slate-200 font-sans">
         <Megaphone size={14} className="text-[#f5222d]" />
         <span>关于 2025 年度秋季职级晋升评审的通知：点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认。</span>
       </div>
@@ -391,19 +391,24 @@ const TabSelector = ({ activeTab, onSelect }: { activeTab: TabType, onSelect: (t
 
   return (
     <div className="grid grid-cols-7 gap-3 mb-3">
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => onSelect(tab)}
-          // 背景色：#F0F9FE (用户指定)
-          // 边框和文字：参考截图，蓝色文字，淡蓝边框
-          className={`h-11 border rounded-lg text-[13px] font-bold transition-all flex items-center justify-center px-1 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none cursor-pointer 
-            bg-[#F0F9FE] border-[#91d5ff] text-[#1890ff] hover:bg-[#e6f7ff]
-            ${activeTab === tab ? 'ring-2 ring-offset-1 ring-[#1890ff] opacity-100' : 'opacity-90'}`}
-        >
-          {tab}
-        </button>
-      ))}
+      {tabs.map((tab) => {
+        const isActive = activeTab === tab;
+        return (
+          <button
+            key={tab}
+            onClick={() => onSelect(tab)}
+            // 字体：font-sans (导航栏小方框)
+            // 交互：选中变蓝底白字，未选中浅蓝底蓝字
+            className={`h-11 border rounded-lg text-[13px] font-bold transition-all flex items-center justify-center px-1 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none cursor-pointer font-sans
+              ${isActive 
+                ? 'bg-[#1890ff] border-[#1890ff] text-white shadow-blue-200' 
+                : 'bg-[#F0F9FE] border-[#91d5ff] text-[#1890ff] hover:bg-[#e6f7ff]'
+              }`}
+          >
+            {tab}
+          </button>
+        );
+      })}
     </div>
   );
 };
@@ -416,22 +421,22 @@ const StoreStats = () => {
     <div className="grid grid-cols-2 gap-4 overflow-auto p-1">
       {widgets.map(title => (
         <div key={title} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm min-h-[160px]">
-          <h3 className="text-sm font-bold text-slate-700 mb-4">{title}</h3>
+          <h3 className="text-sm font-bold text-slate-700 mb-4 font-sans">{title}</h3>
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-slate-500">平台来源</span>
+              <span className="text-[11px] text-slate-500 font-sans">平台来源</span>
               <select className="border border-slate-200 rounded h-6 px-1 text-[10px] outline-none"><option>请选择</option></select>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-slate-500">创建时间</span>
-              <input type="date" className="border border-slate-200 rounded h-6 px-1 text-[10px]" />
+              <span className="text-[11px] text-slate-500 font-sans">创建时间</span>
+              <input type="date" className="border border-slate-200 rounded h-6 px-1 text-[10px] font-mono" />
               <span className="text-slate-300">至</span>
-              <input type="date" className="border border-slate-200 rounded h-6 px-1 text-[10px]" />
+              <input type="date" className="border border-slate-200 rounded h-6 px-1 text-[10px] font-mono" />
             </div>
-            <button className="bg-[#1890ff] text-white text-[10px] px-3 h-6 rounded">查询</button>
+            <button className="bg-[#1890ff] text-white text-[10px] px-3 h-6 rounded font-sans">查询</button>
           </div>
           <div className="flex items-center justify-center h-24 bg-slate-50 rounded border border-dashed border-slate-200">
-            <span className="text-slate-400 text-xs">暂无图表数据</span>
+            <span className="text-slate-400 text-xs font-sans">暂无图表数据</span>
           </div>
         </div>
       ))}
@@ -443,31 +448,31 @@ const DataStats = () => (
   <div className="flex-1 bg-white p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col overflow-hidden">
     <div className="flex items-center gap-4 mb-8">
       <div className="flex items-center gap-2">
-        <span className="text-xs text-slate-500">项目</span>
-        <select className="border border-slate-200 rounded h-8 w-40 px-2 text-xs outline-none"><option>全部</option></select>
+        <span className="text-xs text-slate-500 font-sans">项目</span>
+        <select className="border border-slate-200 rounded h-8 w-40 px-2 text-xs outline-none font-sans"><option>全部</option></select>
       </div>
       <div className="flex items-center gap-2">
         <Clock size={14} className="text-slate-400" />
-        <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs" defaultValue="2025-12-01" />
+        <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-01" />
         <span className="text-slate-300">至</span>
-        <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs" defaultValue="2025-12-31" />
+        <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-31" />
       </div>
-      <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs">查询</button>
+      <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs font-sans">查询</button>
     </div>
     <div className="flex-1 flex flex-col items-center">
-      <h2 className="text-base font-bold mb-4">订单数统计</h2>
+      <h2 className="text-base font-bold mb-4 font-sans">订单数统计</h2>
       <div className="flex gap-20 items-center">
         <div className="w-64 h-64 rounded-full border-[30px] border-[#5b7ce2] relative flex items-center justify-center">
            <div className="text-center">
-              <div className="text-xs text-slate-400">订单总数</div>
-              <div className="text-xl font-bold">289,491</div>
+              <div className="text-xs text-slate-400 font-sans">订单总数</div>
+              <div className="text-xl font-bold font-mono">289,491</div>
            </div>
         </div>
         <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[11px] max-h-64 overflow-y-auto pr-4">
            {["专利申请", "其他开锁服务", "冰箱加氟", "冰箱维修", "单开门冰箱清洗", "双开门冰箱清洗", "名酒回收", "地暖漏水", "地板清洁"].map((item, i) => (
              <div key={item} className="flex items-center gap-2">
                <div className={`w-3 h-3 rounded ${i === 0 ? 'bg-[#5b7ce2]' : 'bg-slate-200'}`}></div>
-               <span className="text-slate-600 truncate w-32">{item}</span>
+               <span className="text-slate-600 truncate w-32 font-sans">{item}</span>
              </div>
            ))}
         </div>
@@ -479,27 +484,27 @@ const DataStats = () => (
 const Leaderboard = () => (
   <div className="flex-1 bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex flex-col overflow-hidden">
     <div className="flex border-b border-slate-100 mb-4">
-      <div className="px-4 py-2 text-[#1890ff] border-b-2 border-[#1890ff] text-sm font-bold cursor-pointer">客服</div>
+      <div className="px-4 py-2 text-[#1890ff] border-b-2 border-[#1890ff] text-sm font-bold cursor-pointer font-sans">客服</div>
     </div>
     <div className="flex items-center gap-6 mb-6 text-[11px]">
-      <div className="flex items-center gap-1">我的排名: <span className="text-blue-500 font-bold">135</span></div>
-      <div className="flex items-center gap-1">录单数: <span className="text-blue-500 font-bold">9</span></div>
-      <div className="flex items-center gap-1">报错数: <span className="text-blue-500 font-bold">0</span></div>
-      <div className="flex items-center gap-1">出错率: <span className="text-blue-500 font-bold">0%</span></div>
+      <div className="flex items-center gap-1 font-sans">我的排名: <span className="text-blue-500 font-bold font-mono">135</span></div>
+      <div className="flex items-center gap-1 font-sans">录单数: <span className="text-blue-500 font-bold font-mono">9</span></div>
+      <div className="flex items-center gap-1 font-sans">报错数: <span className="text-blue-500 font-bold font-mono">0</span></div>
+      <div className="flex items-center gap-1 font-sans">出错率: <span className="text-blue-500 font-bold font-mono">0%</span></div>
     </div>
     <div className="flex items-center gap-4 mb-6">
       <div className="flex items-center gap-2">
-        <span className="text-xs text-slate-500">时间</span>
+        <span className="text-xs text-slate-500 font-sans">时间</span>
         <div className="flex items-center gap-1 border border-slate-200 rounded px-2 h-8">
-           <input type="date" className="text-xs outline-none" defaultValue="2025-12-01" />
+           <input type="date" className="text-xs outline-none font-mono" defaultValue="2025-12-01" />
            <span className="text-slate-300">至</span>
-           <input type="date" className="text-xs outline-none" defaultValue="2025-12-31" />
+           <input type="date" className="text-xs outline-none font-mono" defaultValue="2025-12-31" />
         </div>
       </div>
-      <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs flex items-center gap-1"><Search size={14}/> 搜索</button>
+      <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs flex items-center gap-1 font-sans"><Search size={14}/> 搜索</button>
     </div>
     <div className="flex-1 overflow-auto">
-      <h4 className="text-sm font-bold mb-4">录单数排名</h4>
+      <h4 className="text-sm font-bold mb-4 font-sans">录单数排名</h4>
       <div className="space-y-4 pr-10">
         {[
           { name: "肖广东", rank: 134, count: 10, color: "bg-orange-400" },
@@ -508,10 +513,11 @@ const Leaderboard = () => (
           ...Array.from({ length: 17 }).map((_, i) => ({ name: `客服${i+1}`, rank: 137 + i, count: 5, color: "bg-slate-200" }))
         ].map((item, i) => (
           <div key={i} className="flex items-center gap-4 group">
-            <span className="text-[11px] text-slate-500 w-16 shrink-0">{item.rank} {item.name}</span>
+            <span className="text-[11px] text-slate-500 w-16 shrink-0 font-mono">{item.rank}</span>
+            <span className="text-[11px] text-slate-500 font-sans"> {item.name}</span>
             <div className="flex-1 bg-slate-100 h-6 rounded-r relative overflow-hidden">
                <div className={`${item.color} h-full transition-all`} style={{ width: `${(item.count / 10) * 100}%` }}></div>
-               <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500">{item.count}</span>
+               <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-mono">{item.count}</span>
             </div>
           </div>
         ))}
@@ -524,17 +530,17 @@ const ManagerDashboard = () => (
   <div className="flex-1 overflow-auto p-1 space-y-4">
     <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-bold text-slate-700">数据总览</h3>
+        <h3 className="text-sm font-bold text-slate-700 font-sans">数据总览</h3>
         <div className="flex items-center gap-2">
-           <input type="date" className="border border-slate-200 rounded h-7 px-2 text-xs" defaultValue="2025-12-19" />
-           <button className="bg-[#1890ff] text-white text-[11px] px-3 h-7 rounded">搜索</button>
+           <input type="date" className="border border-slate-200 rounded h-7 px-2 text-xs font-mono" defaultValue="2025-12-19" />
+           <button className="bg-[#1890ff] text-white text-[11px] px-3 h-7 rounded font-sans">搜索</button>
         </div>
       </div>
       <div className="grid grid-cols-6 gap-3">
         {["订单总数", "直派订单", "手动派单", "派单率", "派单平均耗时", "长期订单", "报错订单", "单库订单", "售后订单", "作废订单", "总收款(录)", "总业绩(录)"].map(label => (
           <div key={label} className="bg-slate-50 p-2 rounded border border-slate-100 flex flex-col items-center">
-            <span className="text-[11px] text-slate-500 mb-1">{label}</span>
-            <span className="text-sm font-bold">0</span>
+            <span className="text-[11px] text-slate-500 mb-1 font-sans">{label}</span>
+            <span className="text-sm font-bold font-mono">0</span>
           </div>
         ))}
       </div>
@@ -542,9 +548,9 @@ const ManagerDashboard = () => (
     <div className="grid grid-cols-2 gap-4">
       {["录单情况", "派单情况", "成单数据", "客单价"].map(title => (
         <div key={title} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm min-h-[160px]">
-          <h3 className="text-sm font-bold text-slate-700 mb-4 text-center">{title}</h3>
+          <h3 className="text-sm font-bold text-slate-700 mb-4 text-center font-sans">{title}</h3>
           <div className="h-20 flex items-center justify-center bg-slate-50 rounded border border-dashed border-slate-200">
-            <span className="text-slate-400 text-[10px]">暂无细分数据</span>
+            <span className="text-slate-400 text-[10px] font-sans">暂无细分数据</span>
           </div>
         </div>
       ))}
@@ -583,17 +589,17 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
     <div className="flex-1 flex flex-col overflow-hidden">
       <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm mb-2 flex items-center gap-6">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500">{type}</span>
-          <input type="text" placeholder="请输入内容" className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400" />
+          <span className="text-xs text-slate-500 font-sans">{type}</span>
+          <input type="text" placeholder="请输入内容" className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400 font-sans" />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500">查询日期</span>
-          <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs" defaultValue="2025-12-19" />
+          <span className="text-xs text-slate-500 font-sans">查询日期</span>
+          <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-19" />
         </div>
         {type === '客服' && (
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500">部门</span>
-            <select className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400 bg-white min-w-[100px]">
+            <span className="text-xs text-slate-500 font-sans">部门</span>
+            <select className="border border-slate-200 rounded h-8 px-2 text-xs outline-none focus:border-blue-400 bg-white min-w-[100px] font-sans">
               <option value="">全部</option>
               <option value="运营中心">运营中心</option>
               <option value="客服部">客服部</option>
@@ -601,12 +607,12 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
             </select>
           </div>
         )}
-        <button className="bg-[#1890ff] text-white px-6 h-8 rounded text-xs font-bold hover:bg-blue-600">搜索</button>
+        <button className="bg-[#1890ff] text-white px-6 h-8 rounded text-xs font-bold hover:bg-blue-600 font-sans">搜索</button>
       </div>
       <div className="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm overflow-auto p-4 space-y-4">
         {users.map((user, idx) => (
           <div key={idx} className="border border-slate-200 rounded-lg p-3 hover:shadow-md transition-shadow">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
+            <div className="flex flex-wrap items-center gap-3 mb-4 font-sans">
               <span className="bg-red-500 text-white px-2 py-1 rounded text-[10px] font-medium">{user.name} / {user.group} / {user.role}</span>
               <span className="bg-blue-400 text-white px-2 py-1 rounded text-[10px] font-medium">录单总量: {user.totalCount}</span>
               <span className="bg-green-500 text-white px-2 py-1 rounded text-[10px] font-medium">注册天数: {user.regDays}</span>
@@ -618,7 +624,7 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2"></div>
               {Array.from({ length: 11 }).map((_, i) => (
                 <div key={i} className="flex-1 relative">
-                  <span className="absolute -bottom-4 left-0 -translate-x-1/2 text-[9px] text-slate-400">{10 + i}:00</span>
+                  <span className="absolute -bottom-4 left-0 -translate-x-1/2 text-[9px] text-slate-400 font-mono">{10 + i}:00</span>
                 </div>
               ))}
               <div className="absolute left-1/4 w-0.5 h-4 bg-blue-500 top-1/2 -translate-y-1/2 shadow-sm"></div>
@@ -628,10 +634,10 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
         ))}
       </div>
       <div className="px-4 py-2 border-t border-slate-200 flex items-center justify-center gap-4 text-[11px] bg-slate-50 rounded-b-lg">
-        <span className="text-slate-500">共 20 条记录</span>
+        <span className="text-slate-500 font-sans">共 <span className="font-mono">20</span> 条记录</span>
         <div className="flex gap-1">
           <button className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center bg-white hover:bg-slate-50"><ChevronLeft size={12}/></button>
-          <button className="w-6 h-6 border rounded font-bold bg-[#1890ff] text-white border-[#1890ff]">1</button>
+          <button className="w-6 h-6 border rounded font-bold bg-[#1890ff] text-white border-[#1890ff] font-mono">1</button>
           <button className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center bg-white hover:bg-slate-50"><ChevronRight size={12}/></button>
         </div>
       </div>
@@ -689,12 +695,12 @@ const App = () => {
           <div className="flex items-center gap-3 px-4 flex-1">
             <div className="flex items-center gap-2 mr-8 shrink-0">
               <Activity size={18} className="text-[#1890ff]" />
-              <span className="text-sm font-bold text-[#003a8c]">{overviewConfig.title}</span>
+              <span className="text-sm font-bold text-[#003a8c] font-sans">{overviewConfig.title}</span>
             </div>
             <div className="flex gap-12">
               {overviewConfig.stats.map(([label, val, color]) => (
                 <div key={label} className="flex items-center gap-1.5">
-                  <span className="text-[12px] text-[#8c8c8c]">{label}:</span>
+                  <span className="text-[12px] text-[#8c8c8c] font-sans">{label}:</span>
                   <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
                 </div>
               ))}
