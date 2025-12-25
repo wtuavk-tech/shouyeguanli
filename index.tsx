@@ -582,6 +582,7 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
     role: type === '客服' ? "客服" : "派单",
     totalCount: Math.floor(Math.random() * 10),
     avgInterval: `${Math.floor(Math.random() * 30)}分${Math.floor(Math.random() * 60).toString().padStart(2, '0')}秒`,
+    dailyAvg: Math.floor(Math.random() * 50) + 10, // 新增日均单量模拟数据
     regDays: 500 - i * 5
   })), [type]);
 
@@ -594,7 +595,16 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs text-slate-500 font-sans">查询日期</span>
-          <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-19" />
+          {/* 只有在 "客服录单轨迹" 时显示日期区间选择，其他情况保持单日选择 */}
+          {type === '客服' ? (
+             <div className="flex items-center gap-1">
+               <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-01" />
+               <span className="text-slate-300">-</span>
+               <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-19" />
+             </div>
+          ) : (
+             <input type="date" className="border border-slate-200 rounded h-8 px-2 text-xs font-mono" defaultValue="2025-12-19" />
+          )}
         </div>
         {type === '客服' && (
           <div className="flex items-center gap-2">
@@ -619,6 +629,12 @@ const RecordingTrack = ({ type }: { type: '客服' | '派单员' }) => {
               <span className="bg-purple-500 text-white px-2 py-1 rounded text-[10px] font-medium">
                 {type === '客服' ? '平均录单时间间隔' : '平均派单时间间隔'}: {user.avgInterval}
               </span>
+              {/* 新增“日均单量”，仅在客服页面显示 */}
+              {type === '客服' && (
+                  <span className="bg-orange-500 text-white px-2 py-1 rounded text-[10px] font-medium">
+                    日均单量: {user.dailyAvg}
+                  </span>
+              )}
             </div>
             <div className="relative h-12 flex items-center border-t border-slate-50 pt-2">
               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -translate-y-1/2"></div>
