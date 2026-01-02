@@ -32,6 +32,7 @@ import {
 type TabType = '店铺统计' | '数据统计' | '天梯榜' | '负责人看板' | '派单员数据分析' | '客服录单轨迹' | '派单员录单轨迹';
 
 // --- “网页1” 源代码 (用于 iframe srcdoc) ---
+// 注意：已移除顶部的系统公告栏
 const PAGE_1_HTML = `
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -45,17 +46,6 @@ const PAGE_1_HTML = `
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         body { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-        /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -297,7 +287,7 @@ const PAGE_1_HTML = `
             return (
                 <div className="min-h-screen bg-slate-50 pb-20">
                     <main className="w-full px-3 py-6">
-                        {/* Data Overview Bar - 60px height, background #F0F8FF */}
+                        {/* Data Overview Bar */}
                         <div className="bg-[#F0F8FF] rounded-xl border border-blue-100 h-[60px] mb-6 flex items-center justify-between px-4 shadow-sm">
                             <div className="flex items-center gap-2 min-w-max mr-4">
                                 <Activity className="h-5 w-5 text-blue-600" />
@@ -821,16 +811,14 @@ const App = () => {
         <div className="bg-white rounded-xl border border-slate-100 overflow-hidden flex items-center shadow-sm h-12 mb-2 shrink-0">
           <div className="flex items-center gap-3 px-4 flex-1">
             <div className="flex items-center gap-2 mr-8 shrink-0">
-               <div className="p-1 bg-blue-600 rounded-full">
-                  <Activity size={12} className="text-white" />
-               </div>
-              <span className="text-sm font-bold text-slate-700 font-sans">{overviewConfig.title}</span>
+               <BarChart2 size={18} className="text-blue-600" />
+              <span className="text-[14px] font-bold text-slate-600 font-sans">{overviewConfig.title}</span>
             </div>
             <div className="flex gap-12">
               {overviewConfig.stats.map(([label, val, color]) => (
                 <div key={label} className="flex items-center gap-1.5">
                   <span className="text-[12px] text-[#8c8c8c] font-sans">{label}:</span>
-                  <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
+                  <span className="text-[20px] font-bold font-mono" style={{ color }}>{val}</span>
                 </div>
               ))}
             </div>
